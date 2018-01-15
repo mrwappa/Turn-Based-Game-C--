@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Code">
+      <UniqueIdentifier>{5043c7b0-ac37-455a-9a4c-784935b208d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{65584b64-f5b1-4e2a-852e-8dfab35bce9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GrowingArray">
+      <UniqueIdentifier>{76059e6e-58bc-4c1b-ae36-3e81498a17df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Entities">
+      <UniqueIdentifier>{dd22ee7d-11a5-40bb-887b-9c3dbf7bc781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GSprite">
+      <UniqueIdentifier>{ea999b5e-74d0-4ecc-b21c-78c100df728b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,6 +39,15 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GrowingArray.h">
+      <Filter>Code\GrowingArray</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Code\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GSprite.h">
+      <Filter>Code\GSprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -31,6 +55,12 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Code\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GSprite.cpp">
+      <Filter>Code\GSprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

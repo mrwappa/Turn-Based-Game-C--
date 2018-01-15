@@ -8,9 +8,15 @@ using namespace sf;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	int width = sf::VideoMode::getDesktopMode().width;
+	int height = sf::VideoMode::getDesktopMode().height;
+
+	sf::RenderWindow window(sf::VideoMode(width, height), "WINDOW", sf::Style::None);
+	window.setFramerateLimit(60);
+	window.setVerticalSyncEnabled(true);
+	window.setMouseCursorVisible(false);
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 16;
 
 	while (window.isOpen())
 	{
@@ -24,8 +30,8 @@ int main()
 				window.close();
 		}
 
-		window.clear();
-		window.draw(shape);
+		window.clear(Color(20, 80, 220, 1));
+		//window.draw(shape);
 		window.display();
 	}
 
