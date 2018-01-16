@@ -37,6 +37,10 @@ public:
 	inline void DeleteAll();
 
 	const unsigned& Size()const;
+	
+	inline auto begin();
+	inline auto end();
+	
 
 private:
 
@@ -262,6 +266,20 @@ template<typename TObjectType, typename TSizeType>
 const unsigned& GrowingArray<TObjectType, TSizeType>::Size()const
 {
 	return myNrOfElements;
+}
+
+//BEGINNING OF ARRAY
+template<typename TObjectType, typename TSizeType>
+inline auto GrowingArray<TObjectType, TSizeType>::begin()
+{
+	return std::begin(myArray);
+}
+
+//END OF ARRAY
+template<typename TObjectType, typename TSizeType>
+inline auto GrowingArray<TObjectType, TSizeType>::end()
+{
+	return std::end(myArray);
 }
 
 //SWAP ELEMENTS
