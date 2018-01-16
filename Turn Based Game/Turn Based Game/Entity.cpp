@@ -3,8 +3,17 @@
 
 std::map<std::string, GrowingArray<Entity*>*> Entity::SuperList;
 
-Entity::Entity()
+Entity::Entity(float aX, float aY)
 {
+	myX = aX;
+	myY = aY;
+	myAnimationSpeed = 0;
+	myDepth = 0;
+	myAngle = 0;
+	myDepth = 0;
+	myXScale = 1;
+	myYScale = 1;
+	myColor = sf::Color::White;
 	GrArrayPtr = nullptr;
 	AddInstance(this);
 }
@@ -24,11 +33,13 @@ void Entity::AddInstance(Entity* aEntity)
 	GrArrayPtr = SuperList.at(typeid(aEntity).name());
 	GrArrayPtr->Add(aEntity);
 	GrArrayPtr = nullptr;
-	/*GrowingArray<Entity*>* i = NULL;
-	auto it = SuperList.find(typeid(this).name());
-	if (it != SuperList.end()) i = it->second;*/
+}
 
-	
+void Entity::DeleteInstance(Entity* aEntity)
+{
+	GrArrayPtr = SuperList.at(typeid(aEntity).name());
+	GrArrayPtr->RemoveCyclic(aEntity);
+	GrArrayPtr = nullptr;
 }
 
 //Init,Update,Draw
@@ -54,6 +65,7 @@ void Entity::EndUpdate()
 
 void Entity::Draw()
 {
+	mySprite.SetAnimationSpeed(myAnimationSpeed);
 	mySprite.Draw(myX, myY, myXScale, myYScale, myAngle, myDepth, myColor);
 }
 

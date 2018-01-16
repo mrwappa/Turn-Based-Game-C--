@@ -20,7 +20,7 @@ public:
 
 	//Modifiers
 	#pragma region
-	void SetTexture(sf::Texture aTexture, int aNrOfFrames);
+	void SetTexture(std::string aFileName, int aNrOfFrames);
 	void SetSprite(sf::Sprite aSprite);
 	/*void SetX(float aX);
 	void SetY(float aY);

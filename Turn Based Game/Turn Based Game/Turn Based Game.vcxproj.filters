@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -28,6 +24,16 @@
     <Filter Include="Code\GSprite">
       <UniqueIdentifier>{ea999b5e-74d0-4ecc-b21c-78c100df728b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\Entities\Entity">
+      <UniqueIdentifier>{b628c9a4-ad87-482f-a55a-c0d00bb10947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Entities\Player">
+      <UniqueIdentifier>{ddf89c4f-99db-4425-ad29-f921c754c38c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -42,11 +48,14 @@
     <ClInclude Include="GrowingArray.h">
       <Filter>Code\GrowingArray</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Code\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="GSprite.h">
       <Filter>Code\GSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Code\Entities\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Code\Entities\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,11 +65,14 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Code\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="GSprite.cpp">
       <Filter>Code\GSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Code\Entities\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Code\Entities\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

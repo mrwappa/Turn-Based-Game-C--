@@ -5,12 +5,13 @@
 #include "SFML\Audio.hpp"
 #include "GSprite.h"
 #include "Entity.h"
+#include "Player.h"
 
 using namespace sf;
 
 int main()
 {
-
+	
 	sf::Shader depthShader;
 	depthShader.loadFromFile("Shaders/vertex_shader.vert", sf::Shader::Type::Vertex);
 
@@ -27,6 +28,9 @@ int main()
 	GSprite::DepthShader = &depthShader;
 	GSprite::Window = &window;
 
+
+	Player* player = new Player(50,50);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -38,48 +42,89 @@ int main()
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 				window.close();
 		}
-		/*std::map<std::string, GrowingArray<Entity*>*>::iterator it;
-		for (it = Entity::SuperList.begin(); it != Entity::SuperList.end(); it++)
-		{
-			for (size_t i = 0; i < it->second->Size(); i++)
-			{
-				it->second[i]->Update();
-			}
-		}*/
 
-		/*for (std::map<std::string, GrowingArray<Entity*>*>::iterator ii = Entity::SuperList.begin(); ii != Entity::SuperList.end(); ++ii)
+		//BEGIN UPDATE
+		for (auto const &instance : Entity::SuperList)
 		{
-			std::cout << ii->first << ": " << std::endl;
-			for (GrowingArray<Entity*>*>::iterator it = ii->second.begin(); it != ii->second.end(); ++it) {
-				std::cout << *it << endl;
-			}
-		}*/
+			for (size_t i = 0; i < instance.second->Size(); i++)
+			{
+				//okej c++, du vägrar att kunna använda vanlig, acceptabel eller logisk syntax för index[] operatorer med maps, och därför måste jag uppenbarligen
+				//göra något lika retarderat tillbaks för att få dig att funka...som att lägga till en FindAtIndex funktion som inte alls behövs eftersom jag har en
+				//FUCKING INDEX OVERRIDE OPERATOR SOM SKA GÖRA DETTA JOBBET. MEN NEJ, DU VAR BARA TVUNGEN ATT SKITA NER ÖVER ALLT DET...kuksmaskare
+				instance.second->FindAtIndex(i)->BeginUpdate();
 
-		
-		for (const auto &p : Entity::SuperList)
-		{
-			std::cout << p.first << " :";
-			for (const auto &s : p.second)
-			{
-				
 			}
-			for (size_t i = 0; i < p.second->Size(); i++)
+		}
+		//UPDATE
+		for (auto const &instance : Entity::SuperList)
+		{
+			for (size_t i = 0; i < instance.second->Size(); i++)
 			{
-				p->second[i]->Update();
+				instance.second->FindAtIndex(i)->Update();
+			}
+		}
+		//END UPDATE
+		for (auto const &instance : Entity::SuperList)
+		{
+			for (size_t i = 0; i < instance.second->Size(); i++)
+			{
+				instance.second->FindAtIndex(i)->EndUpdate();
 			}
 		}
 
-		/*for (auto const&[key, val] : symbolTable)
-		{
-			std::cout << key         // string (key)
-				<< ':'
-				<< val        // string's value
-				<< std::endl;
-		}*/
+
 		window.clear(Color(20, 80, 220, 1));
-		//window.draw(shape);
+		//DRAW
+		for (auto const &instance : Entity::SuperList)
+		{
+			for (size_t i = 0; i < instance.second->Size(); i++)
+			{
+				instance.second->FindAtIndex(i)->Draw();
+			}
+		}
 		window.display();
 	}
 
 	return 0;
 }
+
+
+/*std::map<std::string, GrowingArray<Entity*>*>::iterator it;
+for (it = Entity::SuperList.begin(); it != Entity::SuperList.end(); it++)
+{
+for (size_t i = 0; i < it->second->Size(); i++)
+{
+it->second[i]->Update();
+}
+}*/
+
+/*for (std::map<std::string, GrowingArray<Entity*>*>::iterator ii = Entity::SuperList.begin(); ii != Entity::SuperList.end(); ++ii)
+{
+std::cout << ii->first << ": " << std::endl;
+for (GrowingArray<Entity*>*>::iterator it = ii->second.begin(); it != ii->second.end(); ++it) {
+std::cout << *it << endl;
+}
+}*/
+
+/*std::vector<double> bruh;
+bruh.begin();
+for (const auto &p : Entity::SuperList)
+{
+std::cout << p.first << " :";
+for (const auto &s : p.second)
+{
+
+}
+for (size_t i = 0; i < p.second->Size(); i++)
+{
+p->second[i]->Update();
+}
+}
+
+/*for (auto const&[key, val] : symbolTable)
+{
+std::cout << key         // string (key)
+<< ':'
+<< val        // string's value
+<< std::endl;
+}*/

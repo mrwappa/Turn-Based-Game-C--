@@ -31,14 +31,14 @@ void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngl
 		{
 			myAnimationIndex++;
 			myAnimationCounter--;
-			if (myAnimationIndex > myNrOfFrames)
+			if (myAnimationIndex >= myNrOfFrames)
 			{
 				myAnimationIndex = 0;
 			}
 		}
 	}
 
-	mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth, 0, myTextureWidth, myTextureHeight));
+	mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
 	mySprite.setPosition(aX, aY);
 	mySprite.setOrigin(myTextureWidth / myNrOfFrames / 2, myTextureHeight / 2);
 	mySprite.setRotation(aAngle);
@@ -54,9 +54,10 @@ void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngl
 
 //Modifiers
 #pragma region
-void GSprite::SetTexture(sf::Texture aTexture , int aNrOfFrames)
+void GSprite::SetTexture(std::string aFileName , int aNrOfFrames)
 {
-	myTexture = aTexture;
+	if (!myTexture.loadFromFile(aFileName)) { throw "file not found"; }
+
 	mySprite.setTexture(myTexture);
 	myNrOfFrames = aNrOfFrames;
 	myTextureWidth = myTexture.getSize().x;
@@ -86,12 +87,12 @@ void GSprite::SetXScale(float aXScale)
 void GSprite::SetYScale(float aYScale)
 {
 	myYScale = aYScale;
-}*/
+}
 
 void GSprite::SetNrOfFrames(int aNrOfFrames)
 {
 	myNrOfFrames = aNrOfFrames;
-}
+}*/
 
 void GSprite::SetAnimationIndex(int aIndex)
 {

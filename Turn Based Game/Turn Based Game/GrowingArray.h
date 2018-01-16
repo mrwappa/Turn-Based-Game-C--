@@ -2,6 +2,7 @@
 #define GROWINGARRAY_H
 
 #include <iostream>
+#include <iterator>
 
 #define ARRAY_SAFE_DELETE(a) if(a!= NULL) delete[] a; a = NULL;
 #define SAFE_DELETE(a) if(a != NULL) delete(a); a = NULL;
@@ -15,6 +16,11 @@ public:
 	~GrowingArray();
 
 	TObjectType &operator[](const TSizeType index);
+
+	//retardation?
+	TObjectType &FindAtIndex(const TSizeType index);
+	//retardering?
+
 	GrowingArray &operator = (const GrowingArray &growingArray);
 
 	inline void Add(const TObjectType &object);
@@ -38,8 +44,10 @@ public:
 
 	const unsigned& Size()const;
 	
-	inline auto begin();
-	inline auto end();
+	TObjectType *begin();
+	TObjectType *end();
+	/*inline auto begin();
+	inline auto end();*/
 	
 
 private:
@@ -113,6 +121,17 @@ TObjectType& GrowingArray<TObjectType, TSizeType>::operator[](const TSizeType in
 
 	return myArray[index];
 
+}
+
+template<typename TObjectType, typename TSizeType>
+inline TObjectType & GrowingArray<TObjectType, TSizeType>::FindAtIndex(const TSizeType index)
+{
+	if (index < 0 || index >= myNrOfElements)
+	{
+		throw "OUT OF BOUNDS!";
+	}
+
+	return myArray[index];
 }
 
 //INSERT
@@ -268,18 +287,16 @@ const unsigned& GrowingArray<TObjectType, TSizeType>::Size()const
 	return myNrOfElements;
 }
 
-//BEGINNING OF ARRAY
 template<typename TObjectType, typename TSizeType>
-inline auto GrowingArray<TObjectType, TSizeType>::begin()
+inline TObjectType * GrowingArray<TObjectType, TSizeType>::begin()
 {
-	return std::begin(myArray);
+	return &myArray[0];
 }
 
-//END OF ARRAY
 template<typename TObjectType, typename TSizeType>
-inline auto GrowingArray<TObjectType, TSizeType>::end()
+inline TObjectType * GrowingArray<TObjectType, TSizeType>::end()
 {
-	return std::end(myArray);
+	return &myArray[myNrOfElements-1];
 }
 
 //SWAP ELEMENTS

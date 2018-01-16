@@ -9,12 +9,12 @@
 class Entity
 {
 public:
-	Entity();
+	Entity(float aX, float aY);
 	~Entity();
 	
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
 	void AddInstance(Entity* aEntity);
-	void DeleteInstance();
+	void DeleteInstance(Entity* aEntity);
 
 	//Init,Update,Draw
 	virtual void Init();
@@ -37,6 +37,7 @@ protected:
 	sf::Color myColor;
 
 	GSprite mySprite;
+	float myAnimationSpeed;
 
 private:
 	GrowingArray<Entity*>* GrArrayPtr;
