@@ -3,11 +3,16 @@
 #include "SFML\Graphics.hpp"
 #include "SFML\Window.hpp"
 #include "SFML\Audio.hpp"
+#include "GSprite.h"
 
 using namespace sf;
 
 int main()
 {
+
+	sf::Shader depthShader;
+	depthShader.loadFromFile("Shaders/vertex_shader.vert", sf::Shader::Type::Vertex);
+
 	int width = sf::VideoMode::getDesktopMode().width;
 	int height = sf::VideoMode::getDesktopMode().height;
 
@@ -17,6 +22,9 @@ int main()
 	window.setMouseCursorVisible(false);
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 16;
+	
+	GSprite::DepthShader = &depthShader;
+	GSprite::Window = &window;
 
 	while (window.isOpen())
 	{

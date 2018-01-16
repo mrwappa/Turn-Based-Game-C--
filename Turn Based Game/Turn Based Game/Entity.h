@@ -12,8 +12,8 @@ public:
 	Entity();
 	~Entity();
 	
-	static std::map<std::string, GrowingArray<Entity>> SuperList;
-	void AddInstance();
+	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
+	void AddInstance(Entity* aEntity);
 	void DeleteInstance();
 
 	//Init,Update,Draw
@@ -27,8 +27,8 @@ public:
 protected:
 	float myX;
 	float myY;
-	float myXPrevious;
-	float myYPrevious;
+	/*float myXPrevious;
+	float myYPrevious;*/
 	
 	float myDepth;
 	float myAngle;
@@ -36,7 +36,10 @@ protected:
 	float myYScale;
 	sf::Color myColor;
 
-	
+	GSprite mySprite;
+
+private:
+	GrowingArray<Entity*>* GrArrayPtr;
 };
 
 #endif // !ENTITY_H

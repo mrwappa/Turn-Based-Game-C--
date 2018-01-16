@@ -9,6 +9,10 @@ public:
 	GSprite();
 	~GSprite();
 
+	static sf::Shader* DepthShader;
+	static sf::RenderWindow* Window;
+
+	void Draw(float aX, float aY, float aXScale, float aYScale, float aAngle, float aDepth , sf::Color aColor);
 	//Acessors
 	#pragma region
 	
@@ -16,12 +20,12 @@ public:
 
 	//Modifiers
 	#pragma region
-	void SetTexture(sf::Texture aTexture);
+	void SetTexture(sf::Texture aTexture, int aNrOfFrames);
 	void SetSprite(sf::Sprite aSprite);
-	void SetX(float aX);
+	/*void SetX(float aX);
 	void SetY(float aY);
 	void SetXScale(float aXScale);
-	void SetYScale(float aYScale);
+	void SetYScale(float aYScale);*/
 	void SetNrOfFrames(int aNrOfFrames);
 	void SetAnimationIndex(int aIndex);
 	void SetAnimationSpeed(float aSpeed);
@@ -31,14 +35,9 @@ private:
 	sf::Texture myTexture;
 	sf::Sprite mySprite;
 	
-	sf::Color myColor;
-	sf::Vector2i myOrigin;
-
-	float myX;
-	float myY;
+	//sf::Color myColor;
+	//sf::Vector2i myOrigin;
 	
-	float myXScale;
-	float myYScale;
 	float myWidth;
 	float myHeight;
 	float myTextureWidth;
@@ -46,8 +45,7 @@ private:
 	
 	float myNrOfFrames;
 	float myAnimationIndex;
-	float myAnimationCounter;
 	float myAnimationSpeed;
-	
+	float myAnimationCounter;
 };
 #endif // !GSPRITE_H

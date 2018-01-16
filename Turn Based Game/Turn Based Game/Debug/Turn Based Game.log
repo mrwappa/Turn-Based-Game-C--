@@ -1,4 +1,10 @@
-﻿  main.cpp
+﻿  GSprite.cpp
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\gsprite.cpp(33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\gsprite.cpp(52): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\gsprite.cpp(53): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\gsprite.cpp(54): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\gsprite.cpp(85): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\gsprite.cpp(90): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Entity.cpp
   Generating Code...
   Turn Based Game.vcxproj -> C:\Users\erik.wapner\Documents\GitHub\Turn-Based-Game-C--\Turn Based Game\Debug\Turn Based Game.exe
