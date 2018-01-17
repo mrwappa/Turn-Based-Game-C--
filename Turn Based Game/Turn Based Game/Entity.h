@@ -15,7 +15,9 @@ public:
 
 	Entity(float aX, float aY);
 	~Entity();
-	
+
+	static sf::RenderWindow* Window;
+
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
 	void AddInstance(Entity* aEntity);
 	void DestroyInstance(Entity* aEntity);
@@ -29,14 +31,18 @@ public:
 	virtual void DrawGUI();
 
 	//Mouse and Keyboard
-	static sf::Mouse* MouseState;
-	static sf::Mouse* PreviousMouseState;
 	static sf::Keyboard* KeyboardState;
-	static sf::Keyboard* PreviousKeyboardState;
+	static sf::Mouse* MouseState;
+	static sf::Event* Event;
+
 	bool KeyboardCheck(sf::Keyboard::Key aKey);
 	bool KeyboardCheckPressed(sf::Keyboard::Key aKey);
+	bool KeyboardCheckRelease(sf::Keyboard::Key aKey);
+	bool KeyboardCheckReleased(sf::Keyboard::Key aKey);
 	bool MouseCheck(sf::Mouse::Button aButton);
 	bool MouseCheckPressed(sf::Mouse::Button aButton);
+	bool MouseCheckRelease(sf::Mouse::Button aButton);
+	bool MouseCheckReleased(sf::Mouse::Button aButton);
 	
 protected:
 	float myX;

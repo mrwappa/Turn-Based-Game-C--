@@ -11,7 +11,9 @@ using namespace sf;
 
 int main()
 {
-	
+	//check for memory leaks
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	sf::Shader depthShader;
 	depthShader.loadFromFile("Shaders/vertex_shader.vert", sf::Shader::Type::Vertex);
 
@@ -22,18 +24,30 @@ int main()
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	window.setMouseCursorVisible(true);
+	window.setKeyRepeatEnabled(true);
+
+	Entity::Window = &window;
+
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 16;
-	
+
 	GSprite::DepthShader = &depthShader;
 	GSprite::Window = &window;
-
-
+	
 	Player* player = new Player(50,50);
+
+
 
 	while (window.isOpen())
 	{
 		sf::Event event;
+		Entity::Event = &event;
+
+		Keyboard keyboardState;
+		Mouse mouseState;
+		Entity::MouseState = &mouseState;
+		Entity::KeyboardState = &keyboardState;
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -43,11 +57,6 @@ int main()
 				window.close();
 		}
 
-		Keyboard keyboardState;
-		Mouse mouseState;
-		Entity::MouseState = &mouseState;
-		Entity::KeyboardState = &keyboardState;
-		
 		//BEGIN UPDATE
 		for (auto const &instance : Entity::SuperList)
 		{
@@ -77,10 +86,6 @@ int main()
 				instance.second->FindAtIndex(i)->EndUpdate();
 			}
 		}
-		Keyboard previousKeyboardState;
-		Mouse previousMouseState;
-		Entity::PreviousKeyboardState = &previousKeyboardState;
-		Entity::PreviousMouseState = &previousMouseState;
 		
 		window.clear(Color(20, 80, 220, 1));
 		//DRAW
@@ -94,7 +99,14 @@ int main()
 		window.display();
 	}
 
-	
+	for (auto const &instance : Entity::SuperList)
+	{
+		for (size_t i = 0; i < instance.second->Size(); i++)
+		{
+			instance.second->DeleteAll();
+		}
+	}
+	Entity::SuperList.clear();
 
 	return 0;
 }

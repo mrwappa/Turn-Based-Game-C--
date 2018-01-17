@@ -34,6 +34,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Code\InputHandler">
+      <UniqueIdentifier>{d7d5e690-db4a-4709-9ce5-afde46465afb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -57,6 +60,9 @@
     <ClInclude Include="Player.h">
       <Filter>Code\Entities\Player</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Code\InputHandler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -73,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Code\Entities\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Code\InputHandler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

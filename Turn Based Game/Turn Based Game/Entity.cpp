@@ -4,9 +4,9 @@
 std::map<std::string, GrowingArray<Entity*>*> Entity::SuperList;
 
 sf::Mouse* Entity::MouseState;
-sf::Mouse* Entity::PreviousMouseState;
 sf::Keyboard* Entity::KeyboardState;
-sf::Keyboard* Entity::PreviousKeyboardState;
+sf::Event* Entity::Event;
+sf::RenderWindow* Entity::Window;
 
 Entity::Entity(float aX, float aY)
 {
@@ -90,11 +90,25 @@ bool Entity::KeyboardCheck(sf::Keyboard::Key aKey)
 
 bool Entity::KeyboardCheckPressed(sf::Keyboard::Key aKey)
 {
-	if (KeyboardState->isKeyPressed(aKey) and !PreviousKeyboardState->isKeyPressed(aKey))
+	/*if (KeyboardState->isKeyPressed(aKey) and !PreviousKeyboardState->isKeyPressed(aKey))
 	{
 		return true;
 	}
+	return false;*/
+	/*if (Event->type == sf::Event::KeyPressed and Event->key.code == aKey)
+	{
+		return true;
+	}*/
+
+	if (Event->type == sf::Event::KeyPressed)
+	{
+		if (Event->key.code == aKey)
+		{
+			return true;
+		}
+	}
 	return false;
+	
 }
 
 bool Entity::MouseCheck(sf::Mouse::Button aButton)
@@ -108,9 +122,6 @@ bool Entity::MouseCheck(sf::Mouse::Button aButton)
 
 bool Entity::MouseCheckPressed(sf::Mouse::Button aButton)
 {
-	if (MouseState->isButtonPressed(aButton) and !PreviousMouseState->isButtonPressed(aButton))
-	{
-		return true;
-	}
+	
 	return false;
 }

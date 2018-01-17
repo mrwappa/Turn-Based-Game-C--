@@ -35,6 +35,10 @@ void Player::Update()
 	{
 		myY += 4;
 	}
+	if (KeyboardCheck(sf::Keyboard::Tab))
+	{
+		DestroyInstance(this);
+	}
 	if (KeyboardCheckPressed(sf::Keyboard::Right))
 	{
 		myX += 20;
