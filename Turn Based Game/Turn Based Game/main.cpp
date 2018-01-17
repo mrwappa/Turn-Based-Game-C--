@@ -21,7 +21,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(width, height), "WINDOW", sf::Style::None);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
-	window.setMouseCursorVisible(false);
+	window.setMouseCursorVisible(true);
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 16;
 	
@@ -43,6 +43,11 @@ int main()
 				window.close();
 		}
 
+		Keyboard keyboardState;
+		Mouse mouseState;
+		Entity::MouseState = &mouseState;
+		Entity::KeyboardState = &keyboardState;
+		
 		//BEGIN UPDATE
 		for (auto const &instance : Entity::SuperList)
 		{
@@ -63,6 +68,7 @@ int main()
 				instance.second->FindAtIndex(i)->Update();
 			}
 		}
+
 		//END UPDATE
 		for (auto const &instance : Entity::SuperList)
 		{
@@ -71,8 +77,11 @@ int main()
 				instance.second->FindAtIndex(i)->EndUpdate();
 			}
 		}
-
-
+		Keyboard previousKeyboardState;
+		Mouse previousMouseState;
+		Entity::PreviousKeyboardState = &previousKeyboardState;
+		Entity::PreviousMouseState = &previousMouseState;
+		
 		window.clear(Color(20, 80, 220, 1));
 		//DRAW
 		for (auto const &instance : Entity::SuperList)
@@ -84,6 +93,8 @@ int main()
 		}
 		window.display();
 	}
+
+	
 
 	return 0;
 }

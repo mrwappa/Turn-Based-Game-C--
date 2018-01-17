@@ -9,7 +9,9 @@ public:
 	Player(float aX, float aY);
 	~Player();
 
+	void Update();
 	void Draw();
+	
 };
 
 #endif // !PLAYER_H

@@ -3,6 +3,11 @@
 
 std::map<std::string, GrowingArray<Entity*>*> Entity::SuperList;
 
+sf::Mouse* Entity::MouseState;
+sf::Mouse* Entity::PreviousMouseState;
+sf::Keyboard* Entity::KeyboardState;
+sf::Keyboard* Entity::PreviousKeyboardState;
+
 Entity::Entity(float aX, float aY)
 {
 	myX = aX;
@@ -35,7 +40,7 @@ void Entity::AddInstance(Entity* aEntity)
 	GrArrayPtr = nullptr;
 }
 
-void Entity::DeleteInstance(Entity* aEntity)
+void Entity::DestroyInstance(Entity* aEntity)
 {
 	GrArrayPtr = SuperList.at(typeid(aEntity).name());
 	GrArrayPtr->RemoveCyclic(aEntity);
@@ -72,4 +77,40 @@ void Entity::Draw()
 void Entity::DrawGUI()
 {
 
+}
+
+bool Entity::KeyboardCheck(sf::Keyboard::Key aKey)
+{
+	if (KeyboardState->isKeyPressed(aKey))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Entity::KeyboardCheckPressed(sf::Keyboard::Key aKey)
+{
+	if (KeyboardState->isKeyPressed(aKey) and !PreviousKeyboardState->isKeyPressed(aKey))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Entity::MouseCheck(sf::Mouse::Button aButton)
+{
+	if (MouseState->isButtonPressed(aButton))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Entity::MouseCheckPressed(sf::Mouse::Button aButton)
+{
+	if (MouseState->isButtonPressed(aButton) and !PreviousMouseState->isButtonPressed(aButton))
+	{
+		return true;
+	}
+	return false;
 }
