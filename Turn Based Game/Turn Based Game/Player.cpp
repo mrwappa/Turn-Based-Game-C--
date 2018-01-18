@@ -9,8 +9,8 @@ Player::Player(float aX, float aY) : Entity(myX,myY)
 	myY = aY;
 	mySprite.SetTexture("Sprites/spr_link_sheet.png",9);
 	myAnimationSpeed = 0.5f;
-	myXScale = 4;
-	myYScale = 4;
+	myXScale = 2;
+	myYScale = myXScale;
 }
 
 Player::~Player()

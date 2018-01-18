@@ -8,6 +8,7 @@
 #include "GrowingArray.h"
 #include "SFML\Graphics.hpp"
 #include "GSprite.h"
+#include "InputHandler.h"
 
 class Entity
 {
@@ -15,8 +16,6 @@ public:
 
 	Entity(float aX, float aY);
 	~Entity();
-
-	static sf::RenderWindow* Window;
 
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
 	void AddInstance(Entity* aEntity);
@@ -30,10 +29,9 @@ public:
 	virtual void Draw();
 	virtual void DrawGUI();
 
-	//Mouse and Keyboard
-	static sf::Keyboard* KeyboardState;
-	static sf::Mouse* MouseState;
-	static sf::Event* Event;
+	//Mouse,Keyboard
+	static InputHandler* Input;
+
 
 	bool KeyboardCheck(sf::Keyboard::Key aKey);
 	bool KeyboardCheckPressed(sf::Keyboard::Key aKey);

@@ -3,10 +3,7 @@
 
 std::map<std::string, GrowingArray<Entity*>*> Entity::SuperList;
 
-sf::Mouse* Entity::MouseState;
-sf::Keyboard* Entity::KeyboardState;
-sf::Event* Entity::Event;
-sf::RenderWindow* Entity::Window;
+InputHandler* Entity::Input;
 
 Entity::Entity(float aX, float aY)
 {
@@ -80,48 +77,41 @@ void Entity::DrawGUI()
 }
 
 bool Entity::KeyboardCheck(sf::Keyboard::Key aKey)
-{
-	if (KeyboardState->isKeyPressed(aKey))
-	{
-		return true;
-	}
-	return false;
+{	
+	return Input->keyData[aKey] > 0;
 }
 
 bool Entity::KeyboardCheckPressed(sf::Keyboard::Key aKey)
 {
-	/*if (KeyboardState->isKeyPressed(aKey) and !PreviousKeyboardState->isKeyPressed(aKey))
-	{
-		return true;
-	}
-	return false;*/
-	/*if (Event->type == sf::Event::KeyPressed and Event->key.code == aKey)
-	{
-		return true;
-	}*/
+	return Input->keyData[aKey] == 2;
+}
 
-	if (Event->type == sf::Event::KeyPressed)
-	{
-		if (Event->key.code == aKey)
-		{
-			return true;
-		}
-	}
-	return false;
-	
+bool Entity::KeyboardCheckRelease(sf::Keyboard::Key aKey)
+{
+	return Input->keyData[aKey] == -1;
+}
+
+bool Entity::KeyboardCheckReleased(sf::Keyboard::Key aKey)
+{
+	return Input->keyData[aKey] == 0;
 }
 
 bool Entity::MouseCheck(sf::Mouse::Button aButton)
 {
-	if (MouseState->isButtonPressed(aButton))
-	{
-		return true;
-	}
-	return false;
+	return Input->mouseData[aButton] > 0;
 }
 
 bool Entity::MouseCheckPressed(sf::Mouse::Button aButton)
 {
-	
-	return false;
+	return Input->mouseData[aButton] == 2;
+}
+
+bool Entity::MouseCheckRelease(sf::Mouse::Button aButton)
+{
+	return Input->mouseData[aButton] == -1;
+}
+
+bool Entity::MouseCheckReleased(sf::Mouse::Button aButton)
+{
+	return Input->mouseData[aButton] == 0;
 }

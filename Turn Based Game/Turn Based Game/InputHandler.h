@@ -8,18 +8,16 @@ class InputHandler
 public:
 	InputHandler();
 	~InputHandler();
-
-	static sf::Mouse* MouseState;
-	static sf::Keyboard* KeyboardState;
 	static sf::Event* Event;
 
-	bool KeyboardCheck(sf::Keyboard::Key aKey);
-	bool KeyboardCheckPressed(sf::Keyboard::Key aKey);
-	bool KeyboardCheckRelease(sf::Keyboard::Key aKey);
-	bool KeyboardCheckReleased(sf::Keyboard::Key aKey);
-	bool MouseCheck(sf::Mouse::Button aButton);
-	bool MouseCheckPressed(sf::Mouse::Button aButton);
-	bool MouseCheckRelease(sf::Mouse::Button aButton);
-	bool MouseCheckReleased(sf::Mouse::Button aButton);
+	void Update();
+	void UpdateMouseWheel();
+	
+	bool MouseWheelUp;
+	bool MouseWheelDown;
+
+	int keyData[sf::Keyboard::KeyCount];
+	int mouseData[sf::Mouse::ButtonCount];
+	
 };
 #endif // !INPUT_HANDLER

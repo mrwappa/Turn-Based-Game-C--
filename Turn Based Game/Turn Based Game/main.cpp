@@ -6,6 +6,8 @@
 #include "GSprite.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Camera.h"
+
 
 using namespace sf;
 
@@ -26,27 +28,35 @@ int main()
 	window.setMouseCursorVisible(true);
 	window.setKeyRepeatEnabled(true);
 
-	Entity::Window = &window;
-
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 16;
+
+	Camera::Window = &window;
+	Camera camera(0,0);
 
 	GSprite::DepthShader = &depthShader;
 	GSprite::Window = &window;
 	
 	Player* player = new Player(50,50);
 
+	InputHandler inputState;
 
+	
+	sf::Vector2i currentMousePosition;
+	sf::Vector2i previousMousePosition = Vector2i(0, 0);
+	sf::Vector2i mouseVelocity;
 
 	while (window.isOpen())
 	{
 		sf::Event event;
-		Entity::Event = &event;
-
-		Keyboard keyboardState;
-		Mouse mouseState;
-		Entity::MouseState = &mouseState;
-		Entity::KeyboardState = &keyboardState;
+		inputState.Update();
+		Entity::Input = &inputState;
+		Camera::Input = &inputState;
+		InputHandler::Event = &event;
+		Mouse mouse;
+		
+		currentMousePosition = mouse.getPosition();
+		mouseVelocity = currentMousePosition - previousMousePosition;
 
 		while (window.pollEvent(event))
 		{
@@ -55,8 +65,18 @@ int main()
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 				window.close();
+
+			if (event.type == sf::Event::MouseWheelMoved)
+			{
+				// display number of ticks mouse wheel has moved
+				std::cout << event.mouseWheel.delta << '\n';
+			}
+			inputState.UpdateMouseWheel();
+
 		}
 
+		//MAIN UPDATE LOOP
+		#pragma region
 		//BEGIN UPDATE
 		for (auto const &instance : Entity::SuperList)
 		{
@@ -86,7 +106,12 @@ int main()
 				instance.second->FindAtIndex(i)->EndUpdate();
 			}
 		}
-		
+		#pragma endregion
+
+		previousMousePosition = mouse.getPosition();
+		//SET VIEW
+		camera.SetView(-mouseVelocity/2);
+
 		window.clear(Color(20, 80, 220, 1));
 		//DRAW
 		for (auto const &instance : Entity::SuperList)
@@ -110,44 +135,3 @@ int main()
 
 	return 0;
 }
-
-
-/*std::map<std::string, GrowingArray<Entity*>*>::iterator it;
-for (it = Entity::SuperList.begin(); it != Entity::SuperList.end(); it++)
-{
-for (size_t i = 0; i < it->second->Size(); i++)
-{
-it->second[i]->Update();
-}
-}*/
-
-/*for (std::map<std::string, GrowingArray<Entity*>*>::iterator ii = Entity::SuperList.begin(); ii != Entity::SuperList.end(); ++ii)
-{
-std::cout << ii->first << ": " << std::endl;
-for (GrowingArray<Entity*>*>::iterator it = ii->second.begin(); it != ii->second.end(); ++it) {
-std::cout << *it << endl;
-}
-}*/
-
-/*std::vector<double> bruh;
-bruh.begin();
-for (const auto &p : Entity::SuperList)
-{
-std::cout << p.first << " :";
-for (const auto &s : p.second)
-{
-
-}
-for (size_t i = 0; i < p.second->Size(); i++)
-{
-p->second[i]->Update();
-}
-}
-
-/*for (auto const&[key, val] : symbolTable)
-{
-std::cout << key         // string (key)
-<< ':'
-<< val        // string's value
-<< std::endl;
-}*/
