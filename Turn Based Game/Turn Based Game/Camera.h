@@ -3,7 +3,9 @@
 
 #include "SFML\Graphics.hpp"
 #include "InputHandler.h"
+
 #include <iostream>
+
 class Camera
 {
 public:
@@ -19,12 +21,16 @@ public:
 
 	float myX;
 	float myY;
+	float myMouseX;
+	float myMouseY;
 
 	int myIdealWidth;
 	int myCorrespondingWidth;
 	int myIdealHeight;
 	int myWidth;
 	int myHeight;
+	int myViewWidth;
+	int myViewHeight;
 
 	int myMonitorWidth;
 	int myMonitorHeight;

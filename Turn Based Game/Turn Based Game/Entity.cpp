@@ -2,8 +2,10 @@
 #include "Entity.h"
 
 std::map<std::string, GrowingArray<Entity*>*> Entity::SuperList;
-
+std::map<std::string, GrowingArray<Entity*>*> Entity::ClassHierarchy;
 InputHandler* Entity::Input;
+GrowingArray<Entity*>* Entity::GrArrayPtr;
+Camera* Entity::Camera;
 
 Entity::Entity(float aX, float aY)
 {
@@ -40,7 +42,7 @@ void Entity::AddInstance(Entity* aEntity)
 void Entity::DestroyInstance(Entity* aEntity)
 {
 	GrArrayPtr = SuperList.at(typeid(aEntity).name());
-	GrArrayPtr->RemoveCyclic(aEntity);
+	GrArrayPtr->DeleteCyclic(aEntity);
 	GrArrayPtr = nullptr;
 }
 
@@ -114,4 +116,34 @@ bool Entity::MouseCheckRelease(sf::Mouse::Button aButton)
 bool Entity::MouseCheckReleased(sf::Mouse::Button aButton)
 {
 	return Input->mouseData[aButton] == 0;
+}
+
+bool Entity::MouseWheelUp()
+{
+	return Input->MouseWheelUp;
+}
+
+bool Entity::MouseWheelDown()
+{
+	return Input->MouseWheelDown;
+}
+
+int Entity::GameMouseX()
+{
+	return Camera->myMouseX;
+}
+
+int Entity::GameMouseY()
+{
+	return Camera->myMouseY;
+}
+
+int Entity::GUIMouseX()
+{
+	return sf::Mouse::getPosition().x;
+}
+
+int Entity::GUIMouseY()
+{
+	return sf::Mouse::getPosition().y;
 }

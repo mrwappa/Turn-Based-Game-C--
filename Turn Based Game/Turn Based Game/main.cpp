@@ -8,7 +8,6 @@
 #include "Player.h"
 #include "Camera.h"
 
-
 using namespace sf;
 
 int main()
@@ -33,7 +32,7 @@ int main()
 
 	Camera::Window = &window;
 	Camera camera(0,0);
-
+	
 	GSprite::DepthShader = &depthShader;
 	GSprite::Window = &window;
 	
@@ -41,7 +40,7 @@ int main()
 
 	InputHandler inputState;
 
-	
+	bool gamePause = false;
 	sf::Vector2i currentMousePosition;
 	sf::Vector2i previousMousePosition = Vector2i(0, 0);
 	sf::Vector2i mouseVelocity;
@@ -50,6 +49,7 @@ int main()
 	{
 		sf::Event event;
 		inputState.Update();
+		Entity::Camera = &camera;
 		Entity::Input = &inputState;
 		Camera::Input = &inputState;
 		InputHandler::Event = &event;
@@ -65,63 +65,71 @@ int main()
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 				window.close();
-
-			if (event.type == sf::Event::MouseWheelMoved)
+			
+			if (event.type == sf::Event::LostFocus)
 			{
-				// display number of ticks mouse wheel has moved
-				std::cout << event.mouseWheel.delta << '\n';
+				gamePause = true;
+			}
+
+			if (event.type == sf::Event::GainedFocus)
+			{
+				gamePause = false;
 			}
 			inputState.UpdateMouseWheel();
-
 		}
+		previousMousePosition = mouse.getPosition();
 
 		//MAIN UPDATE LOOP
-		#pragma region
-		//BEGIN UPDATE
-		for (auto const &instance : Entity::SuperList)
+		if (!gamePause)
 		{
-			for (size_t i = 0; i < instance.second->Size(); i++)
+			#pragma region
+			//BEGIN UPDATE
+			for (auto const &instance : Entity::SuperList)
 			{
-				//okej c++, du vägrar att kunna använda vanlig, acceptabel eller logisk syntax för index[] operatorer med maps, och därför måste jag uppenbarligen
-				//göra något lika retarderat tillbaks för att få dig att funka...som att lägga till en FindAtIndex funktion som inte alls behövs eftersom jag har en
-				//FUCKING INDEX OVERRIDE OPERATOR SOM SKA GÖRA DETTA JOBBET. MEN NEJ, DU VAR BARA TVUNGEN ATT SKITA NER ÖVER ALLT DET...kuksmaskare
-				instance.second->FindAtIndex(i)->BeginUpdate();
+				for (size_t i = 0; i < instance.second->Size(); i++)
+				{
+					//okej c++, du vägrar att kunna använda vanlig, acceptabel eller logisk syntax för index[] operatorer med maps, och därför måste jag uppenbarligen
+					//göra något lika retarderat tillbaks för att få dig att funka...som att lägga till en FindAtIndex funktion som inte alls behövs eftersom jag har en
+					//FUCKING INDEX OVERRIDE OPERATOR SOM SKA GÖRA DETTA JOBBET. MEN NEJ, DU VAR BARA TVUNGEN ATT SKITA NER ÖVER ALLT DET...kuksmaskare
+					instance.second->FindAtIndex(i)->BeginUpdate();
 
+				}
 			}
-		}
-		//UPDATE
-		for (auto const &instance : Entity::SuperList)
-		{
-			for (size_t i = 0; i < instance.second->Size(); i++)
+			//UPDATE
+			for (auto const &instance : Entity::SuperList)
 			{
-				instance.second->FindAtIndex(i)->Update();
+				for (size_t i = 0; i < instance.second->Size(); i++)
+				{
+					instance.second->FindAtIndex(i)->Update();
+				}
 			}
-		}
 
-		//END UPDATE
-		for (auto const &instance : Entity::SuperList)
-		{
-			for (size_t i = 0; i < instance.second->Size(); i++)
+			//END UPDATE
+			for (auto const &instance : Entity::SuperList)
 			{
-				instance.second->FindAtIndex(i)->EndUpdate();
+				for (size_t i = 0; i < instance.second->Size(); i++)
+				{
+					instance.second->FindAtIndex(i)->EndUpdate();
+				}
 			}
-		}
-		#pragma endregion
+			#pragma endregion
 
-		previousMousePosition = mouse.getPosition();
-		//SET VIEW
-		camera.SetView(-mouseVelocity/2);
+			
+			//SET VIEW
+			camera.SetView(-mouseVelocity / 2);
 
-		window.clear(Color(20, 80, 220, 1));
-		//DRAW
-		for (auto const &instance : Entity::SuperList)
-		{
-			for (size_t i = 0; i < instance.second->Size(); i++)
+			window.clear(Color(20, 80, 220, 1));
+			//DRAW
+			for (auto const &instance : Entity::SuperList)
 			{
-				instance.second->FindAtIndex(i)->Draw();
+				for (size_t i = 0; i < instance.second->Size(); i++)
+				{
+					instance.second->FindAtIndex(i)->Draw();
+				}
 			}
+			window.display();
 		}
-		window.display();
+	
 	}
 
 	for (auto const &instance : Entity::SuperList)
@@ -130,6 +138,10 @@ int main()
 		{
 			instance.second->DeleteAll();
 		}
+	}
+	for (auto const &instance : Entity::SuperList)
+	{
+		delete instance.second;
 	}
 	Entity::SuperList.clear();
 

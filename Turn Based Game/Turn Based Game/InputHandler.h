@@ -1,6 +1,7 @@
 #ifndef INPUT_HANDLER
 #define INPUT_HANDLER
 
+
 #include "SFML\Window.hpp"
 
 class InputHandler

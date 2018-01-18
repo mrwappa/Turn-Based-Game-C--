@@ -1,13 +1,12 @@
 #include "stdafx.h"
 #include "Camera.h"
 
+
 sf::RenderWindow* Camera::Window;
 InputHandler* Camera::Input;
 
 Camera::Camera(float aX, float aY)
 {
-	
-	
 	myX = aX;
 	myY = aY;
 	myMonitorWidth = sf::VideoMode::getDesktopMode().width;
@@ -29,8 +28,12 @@ Camera::Camera(float aX, float aY)
 	}
 	myWidthDifference = (float)myIdealWidth / (float)myCorrespondingWidth;
 
+
 	myWidth = myIdealWidth / myWidthDifference;
 	myHeight = myIdealHeight / myWidthDifference;
+
+	myViewWidth = myWidth / myZoom;
+	myViewHeight = myHeight / myZoom;
 
 	myZoom = 1;
 	myScreenShake = 0;
@@ -38,6 +41,8 @@ Camera::Camera(float aX, float aY)
 	myView.reset(sf::FloatRect(0, 0, myMonitorWidth, myMonitorHeight));
 	myView.setViewport(sf::FloatRect(0, 0, 1.0f, 1.0f));
 	myView.setSize(sf::Vector2f(myWidth, myHeight));
+	myMouseX = myX - myViewWidth / 2 + sf::Mouse::getPosition().x / ((float)myMonitorWidth / (float)myViewWidth);
+	myMouseY = myY - myViewHeight / 2 + sf::Mouse::getPosition().y / ((float)myMonitorHeight / (float)myViewHeight);
 
 }
 
@@ -49,22 +54,35 @@ Camera::~Camera()
 
 void Camera::SetView(sf::Vector2i aMouseVelocity)
 {
+
+
 	if (MouseWheelUp())
 	{
-		myZoom += 0.05f;
+		myZoom += 0.095f * myZoom;
 	}
 	if (MouseWheelDown())
 	{
-		myZoom -= 0.05f;
+		myZoom -= 0.095f * myZoom;
+	}
+	if (KeyboardCheckPressed(sf::Keyboard::Space))
+	{
+		myZoom = 1;
 	}
 	if (MouseCheck(sf::Mouse::Left))
 	{
-		myX += aMouseVelocity.x;
-		myY += aMouseVelocity.y;
+		myX += aMouseVelocity.x/myZoom;
+		myY += aMouseVelocity.y/myZoom;
 	}
+	
+
+	myViewWidth = myWidth / myZoom;
+	myViewHeight = myHeight / myZoom;
+	myMouseX = myX - myViewWidth / 2 + sf::Mouse::getPosition().x / ((float)myMonitorWidth / (float)myViewWidth);
+	myMouseY = myY - myViewHeight / 2 + sf::Mouse::getPosition().y / ((float)myMonitorHeight / (float)myViewHeight);
 	myView.setCenter(myX, myY);
-	myView.setSize(sf::Vector2f(myWidth / myZoom, myHeight / myZoom));
+	myView.setSize(sf::Vector2f(myViewWidth, myViewHeight));
 	Window->setView(myView);
+	
 }
 
 bool Camera::KeyboardCheck(sf::Keyboard::Key aKey)

@@ -8,7 +8,7 @@ Player::Player(float aX, float aY) : Entity(myX,myY)
 	myX = aX;
 	myY = aY;
 	mySprite.SetTexture("Sprites/spr_link_sheet.png",9);
-	myAnimationSpeed = 0.5f;
+	myAnimationSpeed = 0.3f;
 	myXScale = 2;
 	myYScale = myXScale;
 }
@@ -43,13 +43,17 @@ void Player::Update()
 	{
 		myX += 20;
 	}
+	if (MouseCheckPressed(sf::Mouse::Right))
+	{
+		myX = GameMouseX();
+		myY = GameMouseY();
+	}
 	
 }
 
 
 void Player::Draw()
 {
-	myAngle += 1;
 	Entity::Draw();
 }
 

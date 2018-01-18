@@ -9,6 +9,7 @@
 #include "SFML\Graphics.hpp"
 #include "GSprite.h"
 #include "InputHandler.h"
+#include "Camera.h"
 
 class Entity
 {
@@ -18,11 +19,15 @@ public:
 	~Entity();
 
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
+	static std::map<std::string, GrowingArray<Entity*>*> ClassHierarchy;
+
+	static Camera* Camera;
+	
 	void AddInstance(Entity* aEntity);
 	void DestroyInstance(Entity* aEntity);
 	
 	//Init,Update,Draw
-	virtual void Init();
+	virtual void Init();//används inte än, vet inte vad jag ska ha det för ATM
 	virtual void BeginUpdate();
 	virtual void Update();
 	virtual void EndUpdate();
@@ -32,7 +37,6 @@ public:
 	//Mouse,Keyboard
 	static InputHandler* Input;
 
-
 	bool KeyboardCheck(sf::Keyboard::Key aKey);
 	bool KeyboardCheckPressed(sf::Keyboard::Key aKey);
 	bool KeyboardCheckRelease(sf::Keyboard::Key aKey);
@@ -41,6 +45,14 @@ public:
 	bool MouseCheckPressed(sf::Mouse::Button aButton);
 	bool MouseCheckRelease(sf::Mouse::Button aButton);
 	bool MouseCheckReleased(sf::Mouse::Button aButton);
+
+	bool MouseWheelUp();
+	bool MouseWheelDown();
+
+	int GameMouseX();
+	int GameMouseY();
+	int GUIMouseX();
+	int GUIMouseY();
 	
 protected:
 	float myX;
@@ -58,7 +70,7 @@ protected:
 	float myAnimationSpeed;
 
 private:
-	GrowingArray<Entity*>* GrArrayPtr;
+	static GrowingArray<Entity*>* GrArrayPtr;
 };
 
 #endif // !ENTITY_H
