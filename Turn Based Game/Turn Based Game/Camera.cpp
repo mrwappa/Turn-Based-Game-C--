@@ -54,8 +54,6 @@ Camera::~Camera()
 
 void Camera::SetView(sf::Vector2i aMouseVelocity)
 {
-
-
 	if (MouseWheelUp())
 	{
 		myZoom += 0.095f * myZoom;

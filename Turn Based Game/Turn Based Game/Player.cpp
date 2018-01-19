@@ -48,6 +48,14 @@ void Player::Update()
 		myX = GameMouseX();
 		myY = GameMouseY();
 	}
+	if (KeyboardCheckPressed(sf::Keyboard::Up))
+	{
+		myDepth += 1;
+	}
+	if (KeyboardCheckPressed(sf::Keyboard::Down))
+	{
+		myDepth -= 1;
+	}
 	
 }
 
@@ -55,5 +63,7 @@ void Player::Update()
 void Player::Draw()
 {
 	Entity::Draw();
+	Pixel.Draw(myX, myY, 10, 2, 20, 1,myAlpha, sf::Color::White,0);
+	DrawLine(myX, myY, myX, myY + 100, 0, sf::Color::White, 1);
 }
 

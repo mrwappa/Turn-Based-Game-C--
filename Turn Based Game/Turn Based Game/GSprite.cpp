@@ -3,6 +3,7 @@
 
 sf::Shader* GSprite::DepthShader;
 sf::RenderWindow* GSprite::Window;
+GrowingArray<GSprite> GSprite::SpriteList;
 
 GSprite::GSprite()
 {
@@ -22,8 +23,9 @@ GSprite::~GSprite()
 {
 
 }
-void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngle , float aDepth, sf::Color aColor)
+void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngle , float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed)
 {
+	myAnimationSpeed = aAnimationSpeed;
 	if (myAnimationSpeed > 0)
 	{
 		myAnimationCounter += myAnimationSpeed;
@@ -43,13 +45,63 @@ void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngl
 	mySprite.setOrigin(myTextureWidth / myNrOfFrames / 2, myTextureHeight / 2);
 	mySprite.setRotation(aAngle);
 	mySprite.setScale(aXScale, aYScale);
-	mySprite.setColor(aColor);
+
+	mySprite.setColor(sf::Color(aColor.r,aColor.g,aColor.b, aAlpha*255));
 
 	myWidth = myTextureWidth * aXScale;
 	myHeight = myTextureHeight * aYScale;
 
-	DepthShader->setUniform("depth", aDepth);
-	Window->draw(mySprite,DepthShader);
+	myDepth = -aDepth;
+	SpriteList.Add(*this);
+	//DepthShader->setUniform("depth", aDepth);
+	//Window->draw(mySprite,sf::RenderStates(DepthShader));
+}
+
+void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, sf::Vector2f aOrigin, float aAngle, float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed)
+{
+	myAnimationSpeed = aAnimationSpeed;
+	if (myAnimationSpeed > 0)
+	{
+		myAnimationCounter += myAnimationSpeed;
+		if (myAnimationCounter >= 1)
+		{
+			myAnimationIndex++;
+			myAnimationCounter--;
+			if (myAnimationIndex >= myNrOfFrames)
+			{
+				myAnimationIndex = 0;
+			}
+		}
+	}
+
+	mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
+	mySprite.setPosition(aX, aY);
+	mySprite.setOrigin(aOrigin);
+	mySprite.setRotation(aAngle);
+	mySprite.setScale(aXScale, aYScale);
+
+	mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
+
+	myWidth = myTextureWidth * aXScale;
+	myHeight = myTextureHeight * aYScale;
+
+	myDepth = -aDepth;
+	SpriteList.Add(*this);
+}
+
+float GSprite::GetDepth()
+{
+	return myDepth;
+}
+
+sf::Sprite GSprite::GetSprite()
+{
+	return mySprite;
+}
+
+sf::Texture GSprite::GetTexture()
+{
+	return myTexture;
 }
 
 //Modifiers
@@ -59,14 +111,30 @@ void GSprite::SetTexture(std::string aFileName , int aNrOfFrames)
 	if (!myTexture.loadFromFile(aFileName)) { throw "file not found"; }
 
 	mySprite.setTexture(myTexture);
-	myNrOfFrames = aNrOfFrames;
 	myTextureWidth = myTexture.getSize().x;
 	myTextureHeight = myTexture.getSize().y;
+
+	myNrOfFrames = aNrOfFrames;
+}
+
+void GSprite::SetTexture(sf::Texture aTexture, int aNrOfFrames)
+{
+	myTexture = aTexture;
+	mySprite.setTexture(myTexture);
+	myTextureWidth = myTexture.getSize().x;
+	myTextureHeight = myTexture.getSize().y;
+
+
 }
 
 void GSprite::SetSprite(sf::Sprite aSprite)
 {
 	mySprite = aSprite;
+}
+
+void GSprite::SetDepth(float aDepth)
+{
+	myDepth = aDepth;
 }
 
 /*void GSprite::SetX(float aX)

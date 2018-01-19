@@ -3,10 +3,9 @@
 #include "SFML\Graphics.hpp"
 #include "SFML\Window.hpp"
 #include "SFML\Audio.hpp"
-#include "GSprite.h"
 #include "Entity.h"
 #include "Player.h"
-#include "Camera.h"
+#include "SpriteHandler.h"
 
 using namespace sf;
 
@@ -35,23 +34,28 @@ int main()
 	
 	GSprite::DepthShader = &depthShader;
 	GSprite::Window = &window;
-	
-	Player* player = new Player(50,50);
+	SpriteHandler::Window = &window;
 
 	InputHandler inputState;
+	SpriteHandler spriteHandler;
 
 	bool gamePause = false;
 	sf::Vector2i currentMousePosition;
-	sf::Vector2i previousMousePosition = Vector2i(0, 0);
+	sf::Vector2i previousMousePosition = sf::Vector2i(0, 0);
 	sf::Vector2i mouseVelocity;
+
+	Entity::Pixel.SetTexture("Sprites/spr_pixel.png", 1);
+	Entity::Pixel.SetAnimationSpeed(0);
+	Entity::Camera = &camera;
+	Entity::Input = &inputState;
+	Camera::Input = &inputState;
+	
+	Player* player = new Player(50, 50);
 
 	while (window.isOpen())
 	{
 		sf::Event event;
 		inputState.Update();
-		Entity::Camera = &camera;
-		Entity::Input = &inputState;
-		Camera::Input = &inputState;
 		InputHandler::Event = &event;
 		Mouse mouse;
 		
@@ -112,14 +116,8 @@ int main()
 					instance.second->FindAtIndex(i)->EndUpdate();
 				}
 			}
-			#pragma endregion
 
-			
-			//SET VIEW
-			camera.SetView(-mouseVelocity / 2);
-
-			window.clear(Color(20, 80, 220, 1));
-			//DRAW
+			//"DRAW"
 			for (auto const &instance : Entity::SuperList)
 			{
 				for (size_t i = 0; i < instance.second->Size(); i++)
@@ -127,6 +125,19 @@ int main()
 					instance.second->FindAtIndex(i)->Draw();
 				}
 			}
+			spriteHandler.SortDepth();
+			#pragma endregion
+			
+			
+			//SET VIEW
+			camera.SetView(-mouseVelocity / 2);
+
+			window.clear(Color(20, 80, 220, 1));
+			//DRAW
+			
+			spriteHandler.DrawSprites();
+
+			//depthShader.setUniform("depth", 1.0f);
 			window.display();
 		}
 	

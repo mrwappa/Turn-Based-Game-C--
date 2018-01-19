@@ -3,6 +3,8 @@
 
 #define and &&
 #define or ||
+#define SQRT_MAGIC_F 0x5f3759df 
+#define _USE_MATH_DEFINES
 
 #include <map>
 #include "GrowingArray.h"
@@ -10,6 +12,8 @@
 #include "GSprite.h"
 #include "InputHandler.h"
 #include "Camera.h"
+#include <math.h>
+#include "Vector2.h"
 
 class Entity
 {
@@ -54,6 +58,14 @@ public:
 	int GUIMouseX();
 	int GUIMouseY();
 	
+	//Extra Draw
+	static GSprite Pixel;
+	void DrawLine(float aX1, float aY1,float aX2, float aY2,  float aDepth, sf::Color aColor, float aWidth);
+
+	//Quick Maths
+	float SQRT2(const float aX);
+	float DtoR(const float aD);
+	float RtoD(const float aR);
 protected:
 	float myX;
 	float myY;
@@ -64,10 +76,14 @@ protected:
 	float myAngle;
 	float myXScale;
 	float myYScale;
+	float myAlpha;
 	sf::Color myColor;
-
+	
 	GSprite mySprite;
 	float myAnimationSpeed;
+
+
+	
 
 private:
 	static GrowingArray<Entity*>* GrArrayPtr;
