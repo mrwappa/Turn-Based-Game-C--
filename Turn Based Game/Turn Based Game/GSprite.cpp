@@ -4,6 +4,7 @@
 sf::Shader* GSprite::DepthShader;
 sf::RenderWindow* GSprite::Window;
 GrowingArray<GSprite> GSprite::SpriteList;
+Camera* GSprite::Camera;
 
 GSprite::GSprite()
 {
@@ -25,68 +26,73 @@ GSprite::~GSprite()
 }
 void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngle , float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed)
 {
-	myAnimationSpeed = aAnimationSpeed;
-	if (myAnimationSpeed > 0)
+	if (aX + myWidth / 2 > Camera->myX - Camera->myWidth / 2 and aX - myWidth / 2 < Camera->myX + Camera->myWidth / 2
+		and aY + myHeight / 2 > Camera->myY - Camera->myHeight / 2 and aY - myHeight / 2 < Camera->myY + Camera->myHeight / 2)
 	{
-		myAnimationCounter += myAnimationSpeed;
-		if (myAnimationCounter >= 1)
+		myAnimationSpeed = aAnimationSpeed;
+		if (myAnimationSpeed > 0)
 		{
-			myAnimationIndex++;
-			myAnimationCounter--;
-			if (myAnimationIndex >= myNrOfFrames)
+			myAnimationCounter += myAnimationSpeed;
+			if (myAnimationCounter >= 1)
 			{
-				myAnimationIndex = 0;
+				myAnimationIndex++;
+				myAnimationCounter--;
+				if (myAnimationIndex >= myNrOfFrames)
+				{
+					myAnimationIndex = 0;
+				}
 			}
 		}
+
+		mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
+		mySprite.setPosition(aX, aY);
+		mySprite.setOrigin(myTextureWidth / myNrOfFrames / 2, myTextureHeight / 2);
+		mySprite.setRotation(aAngle);
+		mySprite.setScale(aXScale, aYScale);
+
+		mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
+
+		myWidth = myTextureWidth * aXScale;
+		myHeight = myTextureHeight * aYScale;
+
+		myDepth = -aDepth;
+		SpriteList.Add(*this);
 	}
-
-	mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
-	mySprite.setPosition(aX, aY);
-	mySprite.setOrigin(myTextureWidth / myNrOfFrames / 2, myTextureHeight / 2);
-	mySprite.setRotation(aAngle);
-	mySprite.setScale(aXScale, aYScale);
-
-	mySprite.setColor(sf::Color(aColor.r,aColor.g,aColor.b, aAlpha*255));
-
-	myWidth = myTextureWidth * aXScale;
-	myHeight = myTextureHeight * aYScale;
-
-	myDepth = -aDepth;
-	SpriteList.Add(*this);
-	//DepthShader->setUniform("depth", aDepth);
-	//Window->draw(mySprite,sf::RenderStates(DepthShader));
 }
 
 void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, sf::Vector2f aOrigin, float aAngle, float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed)
 {
-	myAnimationSpeed = aAnimationSpeed;
-	if (myAnimationSpeed > 0)
-	{
-		myAnimationCounter += myAnimationSpeed;
-		if (myAnimationCounter >= 1)
+	/*bool draw = aX + myWidth / 2 > Camera->myX - Camera->myWidth / 2 and aX - myWidth / 2 < Camera->myX + Camera->myWidth / 2
+		and aY + myHeight / 2 > Camera->myY - Camera->myHeight / 2 and aY - myHeight / 2 < Camera->myY + Camera->myHeight / 2;*/
+	
+		myWidth = myTextureWidth * aXScale;
+		myHeight = myTextureHeight * aYScale;
+
+		myAnimationSpeed = aAnimationSpeed;
+		if (myAnimationSpeed > 0)
 		{
-			myAnimationIndex++;
-			myAnimationCounter--;
-			if (myAnimationIndex >= myNrOfFrames)
+			myAnimationCounter += myAnimationSpeed;
+			if (myAnimationCounter >= 1)
 			{
-				myAnimationIndex = 0;
+				myAnimationIndex++;
+				myAnimationCounter--;
+				if (myAnimationIndex >= myNrOfFrames)
+				{
+					myAnimationIndex = 0;
+				}
 			}
 		}
-	}
 
-	mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
-	mySprite.setPosition(aX, aY);
-	mySprite.setOrigin(aOrigin);
-	mySprite.setRotation(aAngle);
-	mySprite.setScale(aXScale, aYScale);
+		mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
+		mySprite.setPosition(aX, aY);
+		mySprite.setOrigin(aOrigin);
+		mySprite.setRotation(aAngle);
+		mySprite.setScale(aXScale, aYScale);
 
-	mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
+		mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
 
-	myWidth = myTextureWidth * aXScale;
-	myHeight = myTextureHeight * aYScale;
-
-	myDepth = -aDepth;
-	SpriteList.Add(*this);
+		myDepth = -aDepth;
+		SpriteList.Add(*this);
 }
 
 float GSprite::GetDepth()

@@ -163,7 +163,7 @@ void Entity::DrawLine(float aX1, float aY1, float aX2, float aY2, float aDepth, 
 	line.Draw(aX1, aY1, aWidth, deltalength,(std::atan2(deltay, deltax)), aDepth, 1, aColor, 0);*/
 	Vector2f delta = Vector2f(aX2,aY2) - Vector2f(aX1, aY1);
 
-	line.Draw(aX1, aY1, delta.Length(), aWidth,sf::Vector2f(0,1)*0.5f, RtoD(std::atan2(delta.y, delta.x)), 0, 1, sf::Color::White, 0);
+	line.Draw(aX1, aY1, delta.Length(), aWidth,sf::Vector2f(0,1)*0.5f, RtoD(std::atan2f(delta.y, delta.x)), 0, 1, sf::Color::White, 0);
 }
 
 float Entity::SQRT2(const float aX)

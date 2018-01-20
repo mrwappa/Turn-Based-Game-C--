@@ -34,6 +34,7 @@ int main()
 	
 	GSprite::DepthShader = &depthShader;
 	GSprite::Window = &window;
+	GSprite::Camera = &camera;
 	SpriteHandler::Window = &window;
 
 	InputHandler inputState;

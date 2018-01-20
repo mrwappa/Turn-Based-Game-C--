@@ -1,6 +1,10 @@
 #ifndef GSPRITE_H
 #define GSPRITE_H
 
+#define and &&
+#define or ||
+#define SQRT_MAGIC_F 0x5f3759df 
+#define _USE_MATH_DEFINES
 #include "SFML\Graphics.hpp"
 #include "Camera.h"
 #include "GrowingArray.h"
@@ -14,6 +18,7 @@ public:
 
 	static sf::Shader* DepthShader;
 	static sf::RenderWindow* Window;
+	static Camera* Camera;
 
 	void Draw(float aX, float aY, float aXScale, float aYScale, float aAngle, float aDepth , float aAlpha, sf::Color aColor, float aAnimationSpeed);
 	void Draw(float aX, float aY, float aXScale, float aYScale, sf::Vector2f aOrigin, float aAngle, float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed);
