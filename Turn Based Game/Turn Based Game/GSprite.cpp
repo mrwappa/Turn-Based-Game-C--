@@ -26,8 +26,12 @@ GSprite::~GSprite()
 }
 void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngle , float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed)
 {
-	if (aX + myWidth / 2 > Camera->myX - Camera->myWidth / 2 and aX - myWidth / 2 < Camera->myX + Camera->myWidth / 2
-		and aY + myHeight / 2 > Camera->myY - Camera->myHeight / 2 and aY - myHeight / 2 < Camera->myY + Camera->myHeight / 2)
+	myWidth = myTextureWidth * aXScale / myNrOfFrames;
+	myHeight = myTextureHeight * aYScale;
+	int diameter = myWidth > myHeight ? myWidth : myHeight;
+
+	if (aX + diameter/2 > Camera->myX - Camera->myViewWidth / 2 and aX - diameter/2 < Camera->myX + Camera->myViewWidth / 2 and
+		aY + diameter/2 > Camera->myY - Camera->myViewHeight / 2 and aY - diameter/2 < Camera->myY + Camera->myViewHeight / 2)
 	{
 		myAnimationSpeed = aAnimationSpeed;
 		if (myAnimationSpeed > 0)
@@ -58,41 +62,48 @@ void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngl
 		myDepth = -aDepth;
 		SpriteList.Add(*this);
 	}
+	/*else
+	{
+		std::cout << "not being drawn: " << this << "\n";
+		std::cout << SpriteList.Size() << "\n";
+	}*/
+		
+
 }
 
 void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, sf::Vector2f aOrigin, float aAngle, float aDepth, float aAlpha, sf::Color aColor, float aAnimationSpeed)
 {
-	/*bool draw = aX + myWidth / 2 > Camera->myX - Camera->myWidth / 2 and aX - myWidth / 2 < Camera->myX + Camera->myWidth / 2
-		and aY + myHeight / 2 > Camera->myY - Camera->myHeight / 2 and aY - myHeight / 2 < Camera->myY + Camera->myHeight / 2;*/
-	
-		myWidth = myTextureWidth * aXScale;
-		myHeight = myTextureHeight * aYScale;
 
-		myAnimationSpeed = aAnimationSpeed;
-		if (myAnimationSpeed > 0)
+	/*int xPos = aX + aOrigin.x ;
+	int yPos = aY + aOrigin.y;*/
+
+	myAnimationSpeed = aAnimationSpeed;
+	if (myAnimationSpeed > 0)
+	{
+		myAnimationCounter += myAnimationSpeed;
+		if (myAnimationCounter >= 1)
 		{
-			myAnimationCounter += myAnimationSpeed;
-			if (myAnimationCounter >= 1)
+			myAnimationIndex++;
+			myAnimationCounter--;
+			if (myAnimationIndex >= myNrOfFrames)
 			{
-				myAnimationIndex++;
-				myAnimationCounter--;
-				if (myAnimationIndex >= myNrOfFrames)
-				{
-					myAnimationIndex = 0;
-				}
+				myAnimationIndex = 0;
 			}
 		}
+	}
 
-		mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
-		mySprite.setPosition(aX, aY);
-		mySprite.setOrigin(aOrigin);
-		mySprite.setRotation(aAngle);
-		mySprite.setScale(aXScale, aYScale);
+	mySprite.setTextureRect(sf::IntRect(myAnimationIndex * myTextureWidth / myNrOfFrames, 0, myTextureWidth / myNrOfFrames, myTextureHeight));
+	mySprite.setPosition(aX, aY);
+	mySprite.setOrigin(aOrigin);
+	mySprite.setRotation(aAngle);
+	mySprite.setScale(aXScale, aYScale);
 
-		mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
+	mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
 
-		myDepth = -aDepth;
-		SpriteList.Add(*this);
+	myDepth = -aDepth;
+	SpriteList.Add(*this);
+	
+	
 }
 
 float GSprite::GetDepth()
@@ -129,8 +140,6 @@ void GSprite::SetTexture(sf::Texture aTexture, int aNrOfFrames)
 	mySprite.setTexture(myTexture);
 	myTextureWidth = myTexture.getSize().x;
 	myTextureHeight = myTexture.getSize().y;
-
-
 }
 
 void GSprite::SetSprite(sf::Sprite aSprite)
@@ -142,31 +151,6 @@ void GSprite::SetDepth(float aDepth)
 {
 	myDepth = aDepth;
 }
-
-/*void GSprite::SetX(float aX)
-{
-	myX = aX;
-}
-
-void GSprite::SetY(float aY)
-{
-	myY = aY;
-}
-
-void GSprite::SetXScale(float aXScale)
-{
-	myXScale = aXScale;
-}
-
-void GSprite::SetYScale(float aYScale)
-{
-	myYScale = aYScale;
-}
-
-void GSprite::SetNrOfFrames(int aNrOfFrames)
-{
-	myNrOfFrames = aNrOfFrames;
-}*/
 
 void GSprite::SetAnimationIndex(int aIndex)
 {

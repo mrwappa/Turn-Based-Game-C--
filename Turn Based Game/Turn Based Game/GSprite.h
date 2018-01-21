@@ -35,7 +35,6 @@ public:
 	void SetTexture(sf::Texture aTexture,  int aNrOfFrames);
 	void SetSprite(sf::Sprite aSprite);
 	void SetDepth(float aDepth);
-	void SetNrOfFrames(int aNrOfFrames);
 	void SetAnimationIndex(int aIndex);
 	void SetAnimationSpeed(float aSpeed);
 	#pragma endregion

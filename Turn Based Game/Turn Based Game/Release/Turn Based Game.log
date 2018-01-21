@@ -1,0 +1,59 @@
+﻿  GSprite.cpp
+c:\users\erik wapner\documents\github\turn-based-game-c--\turn based game\turn based game\GrowingArray.h(64): warning C5037: 'GrowingArray<TObjectType,TSizeType>::GrowingArray': an out-of-line definition of a member of a class template cannot have default arguments
+c:\users\erik wapner\documents\github\turn-based-game-c--\turn based game\turn based game\GrowingArray.h(139): warning C5037: 'GrowingArray<TObjectType,TSizeType>::Insert': an out-of-line definition of a member of a class template cannot have default arguments
+GSprite.cpp(31): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+GSprite.cpp(51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+GSprite.cpp(57): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+GSprite.cpp(78): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+GSprite.cpp(98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+GSprite.cpp(104): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+GSprite.cpp(139): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GSprite.cpp(140): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GSprite.cpp(142): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+GSprite.cpp(149): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GSprite.cpp(150): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GSprite.cpp(165): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating code
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'f:\dd\vctools\compiler\utc\src\p2\main.c', line 258)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x1eccd
+    link!InvokeCompilerPass()+0x1eccd
+    link!InvokeCompilerPass()+0x1e6e7
+    link!DllGetC2Telemetry()+0xcff42
+  
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'f:\dd\vctools\compiler\utc\src\p2\main.c', line 258)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x1eccd
+    link!InvokeCompilerPass()+0x1e6e7
+    link!DllGetC2Telemetry()+0xcff42
+  
+  
+LINK : fatal error LNK1000: Internal error during IMAGE::BuildImage
+  
+    Version 14.12.25834.0
+  
+    ExceptionCode            = C0000005
+    ExceptionFlags           = 00000000
+    ExceptionAddress         = 50D4DA47 (50920000) "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\bin\HostX86\x86\c2.dll"
+    NumberParameters         = 00000002
+    ExceptionInformation[ 0] = 00000000
+    ExceptionInformation[ 1] = 102B114C
+  
+  CONTEXT:
+    Eax    = 102B114C  Esp    = 006FE950
+    Ebx    = 06F101F2  Ebp    = 006FE980
+    Ecx    = 00000005  Esi    = 102B114C
+    Edx    = 086C602C  Edi    = 006FE960
+    Eip    = 50D4DA47  EFlags = 00010202
+    SegCs  = 00000023  SegDs  = 0000002B
+    SegSs  = 0000002B  SegEs  = 0000002B
+    SegFs  = 00000053  SegGs  = 0000002B
+    Dr0    = 00000000  Dr3    = 00000000
+    Dr1    = 00000000  Dr6    = 00000000
+    Dr2    = 00000000  Dr7    = 00000000

@@ -51,7 +51,11 @@ int main()
 	Entity::Input = &inputState;
 	Camera::Input = &inputState;
 	
-	Player* player = new Player(50, 50);
+	for (size_t i = 0; i < 200; i++)
+	{
+		Player* player = new Player(50 + i * 1.5f, 50 + i*1.5f);
+	}
+	
 
 	while (window.isOpen())
 	{
@@ -83,6 +87,8 @@ int main()
 			inputState.UpdateMouseWheel();
 		}
 		previousMousePosition = mouse.getPosition();
+		//SET VIEW
+		camera.SetView(-mouseVelocity / 2);
 
 		//MAIN UPDATE LOOP
 		if (!gamePause)
@@ -130,8 +136,7 @@ int main()
 			#pragma endregion
 			
 			
-			//SET VIEW
-			camera.SetView(-mouseVelocity / 2);
+			
 
 			window.clear(Color(20, 80, 220, 1));
 			//DRAW
