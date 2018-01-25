@@ -14,6 +14,7 @@ class GSprite
 {
 public:
 	GSprite();
+	GSprite(sf::Texture aTexture, int aNrOfFrames);
 	~GSprite();
 
 	static sf::Shader* DepthShader;

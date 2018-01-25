@@ -8,7 +8,7 @@ GrowingArray<Entity*>* Entity::GrArrayPtr;
 Camera* Entity::Camera;
 GSprite Entity::Pixel;
 
-Entity::Entity()
+Entity::Entity(std::string aTypeName)
 {
 	myAnimationSpeed = 0;
 	myDepth = 0;
@@ -19,7 +19,7 @@ Entity::Entity()
 	myAlpha = 1;
 	myColor = sf::Color::White;
 	GrArrayPtr = nullptr;
-	AddInstance(this);
+	AddInstance(this, aTypeName);
 }
 
 
@@ -27,21 +27,27 @@ Entity::~Entity()
 {
 }
 
-void Entity::AddInstance(Entity* aEntity)
+void Entity::AddInstance(Entity* aEntity, std::string aTypeName)
 {
+	std::string* name = &aTypeName;
+	Entity* a = dynamic_cast<Entity*>(aEntity);
+
 	//check if key doesnt exist
-	if (SuperList.count(typeid(aEntity).name()) == 0)
+	if (SuperList.count(typeid(aTypeName).name()) == 0)
 	{
-		SuperList[typeid(aEntity).name()] = new GrowingArray<Entity*>;
+		SuperList[typeid(aTypeName).name()] = new GrowingArray<Entity*>;
 	}
-	GrArrayPtr = SuperList.at(typeid(aEntity).name());
+	GrArrayPtr = SuperList.at(typeid(aTypeName).name());
 	GrArrayPtr->Add(aEntity);
 	GrArrayPtr = nullptr;
 }
 
 void Entity::DestroyInstance(Entity* aEntity)
 {
-	GrArrayPtr = SuperList.at(typeid(aEntity).name());
+	std::string name = typeid(aEntity).name();
+	Entity* a = dynamic_cast<Entity*>(aEntity);
+
+	GrArrayPtr = SuperList.at(typeid(*aEntity).name());
 	GrArrayPtr->DeleteCyclic(aEntity);
 	GrArrayPtr = nullptr;
 }

@@ -43,13 +43,7 @@
     <Filter Include="Code\GSprite">
       <UniqueIdentifier>{ea999b5e-74d0-4ecc-b21c-78c100df728b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\CPP Tools\GrowingArray">
-      <UniqueIdentifier>{76059e6e-58bc-4c1b-ae36-3e81498a17df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\CPP Tools\Vector2">
-      <UniqueIdentifier>{716dd087-0108-49f3-a19b-dc743dd18d8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\Entities\Tiles">
+    <Filter Include="Code\Entities\TileSet">
       <UniqueIdentifier>{187e0818-37f9-4b54-b95f-c4bf66445b69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -62,9 +56,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GrowingArray.h">
-      <Filter>Code\CPP Tools\GrowingArray</Filter>
     </ClInclude>
     <ClInclude Include="GSprite.h">
       <Filter>Code\GSprite</Filter>
@@ -84,8 +75,14 @@
     <ClInclude Include="SpriteHandler.h">
       <Filter>Code\SpriteHandler</Filter>
     </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Code\Entities\TileSet</Filter>
+    </ClInclude>
     <ClInclude Include="Vector2.h">
-      <Filter>Code\CPP Tools\Vector2</Filter>
+      <Filter>Code\CPP Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="GrowingArray.h">
+      <Filter>Code\CPP Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="SpriteHandler.cpp">
       <Filter>Code\SpriteHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Code\Entities\TileSet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

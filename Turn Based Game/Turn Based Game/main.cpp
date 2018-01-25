@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "SpriteHandler.h"
+#include "TileSet.h"
 
 using namespace sf;
 
@@ -52,6 +53,7 @@ int main()
 	Camera::Input = &inputState;
 
 	Player* player = new Player(50, 50);
+	TileSet* Tiles = new TileSet(50, 50,4,4);
 
 	while (window.isOpen())
 	{

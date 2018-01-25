@@ -19,6 +19,24 @@ GSprite::GSprite()
 	myAnimationIndex = 0;
 }
 
+GSprite::GSprite(sf::Texture aTexture, int aNrOfFrames)
+{
+	myWidth = 0;
+	myHeight = 0;
+	myTextureHeight = 0;
+	myTextureWidth = 0;
+
+	myNrOfFrames = aNrOfFrames;
+	myAnimationCounter = 0;
+	myAnimationSpeed = 0;
+	myAnimationIndex = 0;
+
+	myTexture = aTexture;
+	mySprite.setTexture(myTexture);
+	myTextureWidth = myTexture.getSize().x;
+	myTextureHeight = myTexture.getSize().y;
+}
+
 
 GSprite::~GSprite()
 {

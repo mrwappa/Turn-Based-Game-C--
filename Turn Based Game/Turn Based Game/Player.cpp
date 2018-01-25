@@ -3,7 +3,7 @@
 
 
 
-Player::Player(float aX,float aY) : Entity()
+Player::Player(float aX,float aY) : Entity(typeid(this).name())
 {
 	myX = aX;
 	myY = aY;
