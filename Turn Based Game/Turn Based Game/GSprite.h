@@ -27,6 +27,7 @@ public:
 	float GetDepth();
 	sf::Sprite GetSprite();
 	sf::Texture GetTexture();
+	float GetTextureWidth();
 	#pragma endregion
 
 	//Modifiers
@@ -39,7 +40,7 @@ public:
 	void SetAnimationSpeed(float aSpeed);
 	#pragma endregion
 
-	static GrowingArray<GSprite> SpriteList;
+	static GrowingArray<GSprite*> SpriteList;
 
 private:
 	sf::Texture myTexture;

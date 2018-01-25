@@ -50,12 +50,8 @@ int main()
 	Entity::Camera = &camera;
 	Entity::Input = &inputState;
 	Camera::Input = &inputState;
-	
-	for (size_t i = 0; i < 200; i++)
-	{
-		Player* player = new Player(50 + i * 1.5f, 50 + i*1.5f);
-	}
-	
+
+	Player* player = new Player(50, 50);
 
 	while (window.isOpen())
 	{
@@ -74,7 +70,7 @@ int main()
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 				window.close();
-			
+
 			if (event.type == sf::Event::LostFocus)
 			{
 				gamePause = true;
@@ -99,11 +95,11 @@ int main()
 			{
 				for (size_t i = 0; i < instance.second->Size(); i++)
 				{
-					//okej c++, du vägrar att kunna använda vanlig, acceptabel eller logisk syntax för index[] operatorer med maps, och därför måste jag uppenbarligen
-					//göra något lika retarderat tillbaks för att få dig att funka...som att lägga till en FindAtIndex funktion som inte alls behövs eftersom jag har en
-					//FUCKING INDEX OVERRIDE OPERATOR SOM SKA GÖRA DETTA JOBBET. MEN NEJ, DU VAR BARA TVUNGEN ATT SKITA NER ÖVER ALLT DET...kuksmaskare
-					instance.second->FindAtIndex(i)->BeginUpdate();
-
+					if (instance.second->FindAtIndex(i)->GetActive())
+					{
+						instance.second->FindAtIndex(i)->BeginUpdate();
+					}
+					
 				}
 			}
 			//UPDATE
@@ -111,7 +107,10 @@ int main()
 			{
 				for (size_t i = 0; i < instance.second->Size(); i++)
 				{
-					instance.second->FindAtIndex(i)->Update();
+					if (instance.second->FindAtIndex(i)->GetActive())
+					{
+						instance.second->FindAtIndex(i)->Update();
+					}
 				}
 			}
 
@@ -120,7 +119,10 @@ int main()
 			{
 				for (size_t i = 0; i < instance.second->Size(); i++)
 				{
-					instance.second->FindAtIndex(i)->EndUpdate();
+					if (instance.second->FindAtIndex(i)->GetActive())
+					{
+						instance.second->FindAtIndex(i)->EndUpdate();
+					}
 				}
 			}
 
@@ -129,14 +131,14 @@ int main()
 			{
 				for (size_t i = 0; i < instance.second->Size(); i++)
 				{
-					instance.second->FindAtIndex(i)->Draw();
+					if (instance.second->FindAtIndex(i)->GetActive())
+					{
+						instance.second->FindAtIndex(i)->Draw();
+					}
 				}
 			}
 			spriteHandler.SortDepth();
 			#pragma endregion
-			
-			
-			
 
 			window.clear(Color(20, 80, 220, 1));
 			//DRAW

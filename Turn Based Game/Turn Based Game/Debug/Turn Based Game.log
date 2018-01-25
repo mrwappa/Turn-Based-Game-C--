@@ -1,6 +1,15 @@
 ﻿  Player.cpp
-c:\users\erik wapner\documents\github\turn-based-game-c--\turn based game\turn based game\growingarray.h(64): warning C5037: 'GrowingArray<TObjectType,TSizeType>::GrowingArray': an out-of-line definition of a member of a class template cannot have default arguments
-c:\users\erik wapner\documents\github\turn-based-game-c--\turn based game\turn based game\growingarray.h(139): warning C5037: 'GrowingArray<TObjectType,TSizeType>::Insert': an out-of-line definition of a member of a class template cannot have default arguments
-c:\users\erik wapner\documents\github\turn-based-game-c--\turn based game\turn based game\player.cpp(48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\erik wapner\documents\github\turn-based-game-c--\turn based game\turn based game\player.cpp(49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Turn Based Game.vcxproj -> C:\Users\Erik Wapner\Documents\GitHub\Turn-Based-Game-C--\Turn Based Game\Debug\Turn Based Game.exe
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\growingarray.h(64): warning C5037: 'GrowingArray<TObjectType,TSizeType>::GrowingArray': an out-of-line definition of a member of a class template cannot have default arguments
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\growingarray.h(139): warning C5037: 'GrowingArray<TObjectType,TSizeType>::Insert': an out-of-line definition of a member of a class template cannot have default arguments
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\player.cpp(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\player.cpp(51): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\player.cpp(52): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Entity.cpp
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\growingarray.h(64): warning C5037: 'GrowingArray<TObjectType,TSizeType>::GrowingArray': an out-of-line definition of a member of a class template cannot have default arguments
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\growingarray.h(139): warning C5037: 'GrowingArray<TObjectType,TSizeType>::Insert': an out-of-line definition of a member of a class template cannot have default arguments
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\entity.cpp(136): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\entity.cpp(141): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\entity.cpp(199): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\erik.wapner\documents\github\turn-based-game-c--\turn based game\turn based game\entity.cpp(204): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Turn Based Game.vcxproj -> C:\Users\erik.wapner\Documents\GitHub\Turn-Based-Game-C--\Turn Based Game\Debug\Turn Based Game.exe

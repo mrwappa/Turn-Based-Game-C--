@@ -3,7 +3,7 @@
 
 sf::Shader* GSprite::DepthShader;
 sf::RenderWindow* GSprite::Window;
-GrowingArray<GSprite> GSprite::SpriteList;
+GrowingArray<GSprite*> GSprite::SpriteList;
 Camera* GSprite::Camera;
 
 GSprite::GSprite()
@@ -60,7 +60,7 @@ void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, float aAngl
 		myHeight = myTextureHeight * aYScale;
 
 		myDepth = -aDepth;
-		SpriteList.Add(*this);
+		SpriteList.Add(this);
 	}
 	/*else
 	{
@@ -101,7 +101,7 @@ void GSprite::Draw(float aX, float aY, float aXScale, float aYScale, sf::Vector2
 	mySprite.setColor(sf::Color(aColor.r, aColor.g, aColor.b, aAlpha * 255));
 
 	myDepth = -aDepth;
-	SpriteList.Add(*this);
+	SpriteList.Add(this);
 	
 	
 }
@@ -119,6 +119,11 @@ sf::Sprite GSprite::GetSprite()
 sf::Texture GSprite::GetTexture()
 {
 	return myTexture;
+}
+
+float GSprite::GetTextureWidth()
+{
+	return myTextureWidth;
 }
 
 //Modifiers

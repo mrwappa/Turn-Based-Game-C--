@@ -49,6 +49,9 @@
     <Filter Include="Code\CPP Tools\Vector2">
       <UniqueIdentifier>{716dd087-0108-49f3-a19b-dc743dd18d8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\Entities\Tiles">
+      <UniqueIdentifier>{187e0818-37f9-4b54-b95f-c4bf66445b69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

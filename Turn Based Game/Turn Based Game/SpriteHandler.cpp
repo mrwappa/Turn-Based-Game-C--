@@ -22,7 +22,7 @@ void SpriteHandler::SortDepth()
 			swapped = false;
 			for (int j = 0; j < GSprite::SpriteList.Size() - i - 1; j++)
 			{
-				if (GSprite::SpriteList[j].GetDepth() > GSprite::SpriteList[j + 1].GetDepth())
+				if (GSprite::SpriteList[j]->GetDepth() > GSprite::SpriteList[j + 1]->GetDepth())
 				{
 					GSprite::SpriteList.Swap(j, j + 1);
 					swapped = true;
@@ -40,9 +40,9 @@ void SpriteHandler::SortDepth()
 
 void SpriteHandler::DrawSprites()
 {
-	for (int i = 0; i < GSprite::SpriteList.Size(); i++)
+for (int i = 0; i < GSprite::SpriteList.Size(); i++)
 	{
-		Window->draw(GSprite::SpriteList[i].GetSprite());
+		Window->draw(GSprite::SpriteList[i]->GetSprite());
 	}
 	GSprite::SpriteList.RemoveAll();
 }

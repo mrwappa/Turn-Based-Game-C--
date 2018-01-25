@@ -19,7 +19,7 @@ class Entity
 {
 public:
 
-	Entity(float aX, float aY);
+	Entity();
 	~Entity();
 
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
@@ -61,7 +61,14 @@ public:
 	//Extra Draw
 	static GSprite Pixel;
 	void DrawLine(float aX1, float aY1,float aX2, float aY2,  float aDepth, sf::Color aColor, float aWidth);
-
+	//Accessors
+#pragma region
+	bool GetActive();
+#pragma endregion
+	//Modifiers
+#pragma region
+	void SetActive(const bool aActive);
+#pragma endregion
 	//Quick Maths
 	float SQRT2(const float aX);
 	float DtoR(const float aD);
@@ -82,8 +89,7 @@ protected:
 	GSprite mySprite;
 	float myAnimationSpeed;
 
-
-	
+	float myActive;
 
 private:
 	static GrowingArray<Entity*>* GrArrayPtr;

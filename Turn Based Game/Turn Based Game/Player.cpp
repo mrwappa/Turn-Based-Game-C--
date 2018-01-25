@@ -3,7 +3,7 @@
 
 
 
-Player::Player(float aX, float aY) : Entity(myX,myY)
+Player::Player(float aX,float aY) : Entity()
 {
 	myX = aX;
 	myY = aY;
@@ -17,8 +17,11 @@ Player::~Player()
 {
 
 }
+
 void Player::Update()
 {
+	myDepth = rand() % 100;
+	myAngle += 2;
 	if (KeyboardCheck(sf::Keyboard::A))
 	{
 		myX -= 4;

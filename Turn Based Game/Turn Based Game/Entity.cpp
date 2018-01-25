@@ -8,10 +8,8 @@ GrowingArray<Entity*>* Entity::GrArrayPtr;
 Camera* Entity::Camera;
 GSprite Entity::Pixel;
 
-Entity::Entity(float aX, float aY)
+Entity::Entity()
 {
-	myX = aX;
-	myY = aY;
 	myAnimationSpeed = 0;
 	myDepth = 0;
 	myAngle = 0;
@@ -71,7 +69,11 @@ void Entity::EndUpdate()
 
 void Entity::Draw()
 {
-	mySprite.Draw(myX, myY, myXScale, myYScale, myAngle, myDepth, myAlpha, myColor, myAnimationSpeed);
+	if (mySprite.GetTextureWidth() > 0)
+	{
+		mySprite.Draw(myX, myY, myXScale, myYScale, myAngle, myDepth, myAlpha, myColor, myAnimationSpeed);
+	}
+	
 }
 
 void Entity::DrawGUI()
@@ -152,8 +154,7 @@ int Entity::GUIMouseY()
 void Entity::DrawLine(float aX1, float aY1, float aX2, float aY2, float aDepth, sf::Color aColor, float aWidth)
 {
 	GSprite line;
-	
-	line.SetTexture(Pixel.GetTexture(), 1);
+	line.SetTexture("Sprites/spr_pixel.png", 1);
 
 	/*float deltax = aX2 - aX1;
 	float deltay = aY2 - aY1;
@@ -165,6 +166,18 @@ void Entity::DrawLine(float aX1, float aY1, float aX2, float aY2, float aDepth, 
 
 	line.Draw(aX1, aY1, delta.Length(), aWidth,sf::Vector2f(0,1)*0.5f, RtoD(std::atan2f(delta.y, delta.x)), 0, 1, sf::Color::White, 0);
 }
+//Accessors, Modifiers
+#pragma region
+bool Entity::GetActive()
+{
+	return myActive;
+}
+
+void Entity::SetActive(const bool aActive)
+{
+	myActive = aActive;
+}
+#pragma endregion
 
 float Entity::SQRT2(const float aX)
 {
