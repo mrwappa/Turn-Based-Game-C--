@@ -3,7 +3,7 @@
 
 
 
-Player::Player(float aX,float aY) : Entity(typeid(this).name())
+Player::Player(float aX,float aY) : Entity()
 {
 	myX = aX;
 	myY = aY;
@@ -11,6 +11,7 @@ Player::Player(float aX,float aY) : Entity(typeid(this).name())
 	myAnimationSpeed = 0.3f;
 	myXScale = 2;
 	myYScale = myXScale;
+	AddInstance(this);
 }
 
 Player::~Player()
@@ -40,7 +41,8 @@ void Player::Update()
 	}
 	if (KeyboardCheck(sf::Keyboard::Tab))
 	{
-		DestroyInstance(this);
+		//DestroyInstance(this);
+		DestroyInstance(GetObject(typeid(TileSet).name()));
 	}
 	if (KeyboardCheckPressed(sf::Keyboard::Right))
 	{

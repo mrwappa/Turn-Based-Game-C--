@@ -20,7 +20,7 @@ class Entity
 {
 public:
 
-	Entity(std::string aTypeName);
+	Entity();
 	~Entity();
 
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
@@ -28,9 +28,12 @@ public:
 
 	static Camera* Camera;
 	
-	void AddInstance(Entity* aEntity, std::string aTypeName);
+	void AddInstance(Entity* aEntity);
 	void DestroyInstance(Entity* aEntity);
-	
+	Entity* GetObject(std::string aEntity);
+
+	std::string Obj(Entity aClass);
+
 	//Init,Update,Draw
 	virtual void Init();//används inte än, vet inte vad jag ska ha det för ATM
 	virtual void BeginUpdate();
@@ -91,7 +94,7 @@ protected:
 	float myAnimationSpeed;
 
 	float myActive;
-
+	float myName;
 private:
 	static GrowingArray<Entity*>* GrArrayPtr;
 };

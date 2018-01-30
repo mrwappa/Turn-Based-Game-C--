@@ -10,7 +10,9 @@ public:
 	~TileSet();
 	static sf::Texture Tile;
 
+	void Update();
 	void Draw();
+
 private:
 	GrowingArray<GrowingArray<GSprite*>*> myTileArray;
 	float myX;

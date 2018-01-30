@@ -3,7 +3,7 @@
 
 sf::Texture TileSet::Tile;
 
-TileSet::TileSet(float aX, float aY, int aRows, int aColumns) : Entity(typeid(this).name())
+TileSet::TileSet(float aX, float aY, int aRows, int aColumns) : Entity()
 {
 	myX = aX;
 	myY = aY;
@@ -16,6 +16,7 @@ TileSet::TileSet(float aX, float aY, int aRows, int aColumns) : Entity(typeid(th
 			myTileArray[i]->Add(new GSprite(Tile,1));
 		}
 	}
+	AddInstance(this);
 }
 
 
@@ -29,6 +30,11 @@ TileSet::~TileSet()
 	{
 		myTileArray.DeleteAll();
 	}
+}
+
+void TileSet::Update()
+{
+	
 }
 
 void TileSet::Draw()
