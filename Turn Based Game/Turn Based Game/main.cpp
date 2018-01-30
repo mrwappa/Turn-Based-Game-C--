@@ -89,7 +89,7 @@ int main()
 		camera.SetView(-mouseVelocity / 2);
 
 		//MAIN UPDATE LOOP
-		if (!gamePause)
+		if (true)//!gamePause
 		{
 			#pragma region
 			//BEGIN UPDATE

@@ -123,6 +123,7 @@ TObjectType& GrowingArray<TObjectType, TSizeType>::operator[](const TSizeType in
 
 }
 
+//WHEN INDEX OPERATOR FAILS
 template<typename TObjectType, typename TSizeType>
 inline TObjectType & GrowingArray<TObjectType, TSizeType>::FindAtIndex(const TSizeType index)
 {
@@ -188,7 +189,6 @@ inline TSizeType GrowingArray<TObjectType, TSizeType>::Find(const TObjectType & 
 		{
 			return i;
 		}
-
 	}
 
 	return FoundNone;

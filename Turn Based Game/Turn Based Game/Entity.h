@@ -20,7 +20,7 @@ class Entity
 {
 public:
 
-	Entity();
+	Entity(std::string aName);
 	~Entity();
 
 	static std::map<std::string, GrowingArray<Entity*>*> SuperList;
@@ -28,7 +28,7 @@ public:
 
 	static Camera* Camera;
 	
-	void AddInstance(Entity* aEntity);
+	void AddInstance(Entity* aEntit, std::string aName);
 	void DestroyInstance(Entity* aEntity);
 	Entity* GetObject(std::string aEntity);
 
@@ -68,6 +68,7 @@ public:
 	//Accessors
 #pragma region
 	bool GetActive();
+	std::string GetName();
 #pragma endregion
 	//Modifiers
 #pragma region
@@ -94,7 +95,7 @@ protected:
 	float myAnimationSpeed;
 
 	float myActive;
-	float myName;
+	std::string myName;
 private:
 	static GrowingArray<Entity*>* GrArrayPtr;
 };

@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 
-
-
-Player::Player(float aX,float aY) : Entity()
+Player::Player(float aX,float aY) : Entity("Player")
 {
 	myX = aX;
 	myY = aY;
@@ -11,7 +9,6 @@ Player::Player(float aX,float aY) : Entity()
 	myAnimationSpeed = 0.3f;
 	myXScale = 2;
 	myYScale = myXScale;
-	AddInstance(this);
 }
 
 Player::~Player()
@@ -21,7 +18,6 @@ Player::~Player()
 
 void Player::Update()
 {
-	myDepth = rand() % 100;
 	myAngle += 2;
 	if (KeyboardCheck(sf::Keyboard::A))
 	{
@@ -42,7 +38,7 @@ void Player::Update()
 	if (KeyboardCheck(sf::Keyboard::Tab))
 	{
 		//DestroyInstance(this);
-		DestroyInstance(GetObject(typeid(TileSet).name()));
+		DestroyInstance(this);
 	}
 	if (KeyboardCheckPressed(sf::Keyboard::Right))
 	{

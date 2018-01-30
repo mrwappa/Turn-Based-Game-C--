@@ -8,7 +8,7 @@ GrowingArray<Entity*>* Entity::GrArrayPtr;
 Camera* Entity::Camera;
 GSprite Entity::Pixel;
 
-Entity::Entity()
+Entity::Entity(std::string aName)
 {
 	myAnimationSpeed = 0;
 	myDepth = 0;
@@ -19,6 +19,8 @@ Entity::Entity()
 	myAlpha = 1;
 	myColor = sf::Color::White;
 	GrArrayPtr = nullptr;
+	myName = aName;
+	AddInstance(this,aName);
 }
 
 
@@ -26,22 +28,21 @@ Entity::~Entity()
 {
 }
 
-void Entity::AddInstance(Entity* aEntity)
+void Entity::AddInstance(Entity* aEntity, std::string aName)
 {
 	//check if key doesnt exist
-	if (SuperList.count(typeid(aEntity).name()) == 0)
+	if (SuperList.count(aName) == 0)
 	{
-		SuperList[typeid(aEntity).name()] = new GrowingArray<Entity*>;
+		SuperList[aName] = new GrowingArray<Entity*>;
 	}
-	GrArrayPtr = SuperList.at(typeid(aEntity).name());
+	GrArrayPtr = SuperList.at(aName);
 	GrArrayPtr->Add(aEntity);
 	GrArrayPtr = nullptr;
 }
 
 void Entity::DestroyInstance(Entity* aEntity)
 {
-	std::string name = typeid(*aEntity).name();
-	GrArrayPtr = SuperList.at(typeid(aEntity).name());
+	GrArrayPtr = SuperList.at(aEntity->GetName());
 	GrArrayPtr->DeleteCyclic(aEntity);
 	GrArrayPtr = nullptr;
 }
@@ -181,6 +182,11 @@ void Entity::DrawLine(float aX1, float aY1, float aX2, float aY2, float aDepth, 
 bool Entity::GetActive()
 {
 	return myActive;
+}
+
+std::string Entity::GetName()
+{
+	return myName;
 }
 
 void Entity::SetActive(const bool aActive)

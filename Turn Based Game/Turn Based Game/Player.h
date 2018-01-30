@@ -12,6 +12,8 @@ public:
 
 	void Update();
 	void Draw();
+
+
 };
 
 #endif // !PLAYER_H

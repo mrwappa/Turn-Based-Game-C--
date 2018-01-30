@@ -3,7 +3,7 @@
 
 sf::Texture TileSet::Tile;
 
-TileSet::TileSet(float aX, float aY, int aRows, int aColumns) : Entity()
+TileSet::TileSet(float aX, float aY, int aRows, int aColumns) : Entity("TileSet")
 {
 	myX = aX;
 	myY = aY;
@@ -16,7 +16,6 @@ TileSet::TileSet(float aX, float aY, int aRows, int aColumns) : Entity()
 			myTileArray[i]->Add(new GSprite(Tile,1));
 		}
 	}
-	AddInstance(this);
 }
 
 
